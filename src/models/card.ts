@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-import sequelize from '../../config/sequelize'
+import sequelize from '../utils/sequelize'
 
 const Card = sequelize.define('Card', {
   id: {
