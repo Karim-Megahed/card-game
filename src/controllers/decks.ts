@@ -41,3 +41,28 @@ export const createDeck = async (req: Request, res: Response) => {
     
     res.status(201).send(deck)
 }
+
+export const drawDeckCards = async (req: Request, res: Response) => {
+    const { count } = req.body;
+    const { id } = req.params;
+    console.log(count, id);
+    
+    const deck = await Deck.findOne({
+        where: {id: id},  
+    });
+    const deckCards = await DeckCard.findAll({
+        where: {deck_id: deck.id, drawn: false},
+        limit: count
+    });
+
+    await DeckCard.update({drawn: true}, {
+        where: {deck_id: deck.id, drawn: false},
+        limit: count
+    })
+
+    const cards = await Card.findAll({
+        where: {id: deckCards.map((deckCard) => deckCard.card_id)},
+    })
+
+    res.status(201).send(cards)
+}
