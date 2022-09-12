@@ -1,6 +1,8 @@
-export default (array) => {
-    let currentIndex = array.length
-    let randomIndex
+import { ICard } from "../interfaces/card"
+
+export default (array: ICard[]) => {
+    let currentIndex: number = array.length
+    let randomIndex: number
   
     while (currentIndex != 0) {
       randomIndex = Math.floor(Math.random() * currentIndex)
@@ -11,4 +13,3 @@ export default (array) => {
   
     return array;
 }
-  

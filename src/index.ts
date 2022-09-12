@@ -1,5 +1,5 @@
-import express, { Express, Request, Response } from 'express'
-import decksRoutes from "./routes/decks"
+import express, { Express } from 'express'
+import decksRoutes from "./routes/decks"    
 
 const app: Express = express()
 const PORT = 8000
