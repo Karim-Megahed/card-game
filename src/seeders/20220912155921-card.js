@@ -33,8 +33,8 @@ const values = [
 const cardList = () => {
   let list = [];
 
-  values.forEach(value => {
-    suits.map(suit => {
+  suits.forEach(suit => {
+    values.map(value => {
      return list.push({
         value: value,
         suit: suit,

@@ -1,4 +1,3 @@
-import Card from "./card";
 import sequelize from '../utils/sequelize'
 const { DataTypes } = require('sequelize')
 
@@ -29,7 +28,7 @@ const Deck = sequelize.define('Deck', {
 // const DecksCards = sequelize.define('decks_to_cards', {}, { timestamps: false });
 
 // Deck.associate = models => {
-//   Deck.hasMAny(models.Card);
+//   Deck.hasMany(models.Card);
 // };
 
 export default Deck;
