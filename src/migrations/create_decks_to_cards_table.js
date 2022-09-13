@@ -2,7 +2,7 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
       return queryInterface.createTable('decks_to_cards', {
         deck_id: {
-          type: Sequelize.DataTypes.INTEGER,
+          type: Sequelize.DataTypes.STRING,
           allowNull: false,
           references: {
             model: {

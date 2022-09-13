@@ -8,27 +8,29 @@ import { IDeck, DECK_TYPE, DECK_FULL_AMOUNT, DECK_HALF_AMOUNT } from '../interfa
 import { ICard } from '../interfaces/card'
 import { IDeckCard } from '../interfaces/deckCard'
 
-export const getDecks = async (_req: Request, res: Response) => {
-    const decks = await Deck.findAll({});
-
-    res.send(decks);
-}
-
 export const getDeck = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { id } = req.params
 
     const deck: IDeck = await Deck.findOne({
         where: {id: id},  // include: Card
     });
+
+    if(!deck){
+        return res.status(404).send({
+            error: 'Not found!', 
+        });
+    }
+
     const deckCards: IDeckCard[] = await DeckCard.findAll({
         where: {deck_id: deck.id, drawn: false},
     });
+    
     const cards: ICard[] = await Card.findAll({
         where: {id: deckCards.map((deckCard: IDeckCard) => deckCard.card_id)}
     })
 
     res.status(200).send({
-        id: deck.uuid, 
+        id: deck.id, 
         type: deck.type, 
         shuffled: deck.shuffled, 
         remaining: cards.length,
@@ -37,17 +39,18 @@ export const getDeck = async (req: Request, res: Response) => {
 }
 
 export const createDeck = async (req: Request, res: Response) => {
-    const { type, shuffled }: { type: DECK_TYPE, shuffled: boolean } = req.body;
+    const { type, shuffled }: { type: DECK_TYPE, shuffled: boolean } = req.body
 
     const numberOfCards: number = type === DECK_TYPE.FULL ? DECK_FULL_AMOUNT : DECK_HALF_AMOUNT
-    const deck: IDeck = await Deck.create({type, shuffled, uuid: uuidv4()})
+    const deck: IDeck = await Deck.create({type, shuffled, id: uuidv4()})
     let cards: ICard[] = await Card.findAll({limit: numberOfCards})
+
     cards = shuffled ? shuffle(cards) : cards;
 
     cards.forEach((card: ICard) => DeckCard.create({card_id: card.id, deck_id: deck.id}))
     
     res.status(201).send({
-        id: deck.uuid, 
+        id: deck.id, 
         type: deck.type, 
         shuffled: deck.shuffled, 
         remaining: cards.length,
@@ -55,12 +58,19 @@ export const createDeck = async (req: Request, res: Response) => {
 }
 
 export const drawDeckCards = async (req: Request, res: Response) => {
-    const { count } = req.body;
-    const { id } = req.params;
+    const { count } = req.body
+    const { id } = req.params
     
     const deck: IDeck = await Deck.findOne({
         where: {id: id},  
     });
+
+    if(!deck){
+        return res.status(404).send({
+            error: 'Not found!', 
+        });
+    }
+
     const deckCards: IDeckCard[] = await DeckCard.findAll({
         where: {deck_id: deck.id, drawn: false},
         limit: count

@@ -4,7 +4,7 @@ const { DataTypes } = require('sequelize')
 
 const DeckCard = sequelize.define('decks_to_cards', {
     deck_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
       },

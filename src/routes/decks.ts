@@ -1,8 +1,7 @@
 import express from 'express'
-import { getDecks, getDeck, createDeck, drawDeckCards } from '../controllers/decks'
-const router = express.Router();
+import { getDeck, createDeck, drawDeckCards } from '../controllers/decks'
 
-router.get('/', getDecks)
+const router = express.Router()
 
 router.get('/:id', getDeck)
 

@@ -3,14 +3,10 @@ const { DataTypes } = require('sequelize')
 
 const Deck = sequelize.define('Deck', {
   id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  uuid: {
     type: DataTypes.STRING,
     allowNull: false,
+    primaryKey: true,
+ 
   },
   type: {
     type: DataTypes.STRING,
