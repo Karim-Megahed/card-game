@@ -30,18 +30,12 @@ const values = [
   'JACK'
 ];
 
-const cardList = () => {
-  let list = [];
-
-  suits.forEach(suit => {
-    values.map(value => {
-     return list.push({
-        value: value,
-        suit: suit,
-        code: value.charAt(0) + suit.charAt(0)
-    })
-    })
-  })
-
-  return list;
-}
+const cardList = () => {  
+  return suits.flatMap(suit => {
+    return values.map(value => ({
+         value: value,
+         suit: suit,
+         code: value.charAt(0) + suit.charAt(0)
+     }))
+   })
+ }
