@@ -9,10 +9,10 @@ import { ICard } from '../interfaces/card'
 import { IDeckCard } from '../interfaces/deckCard'
 
 export const getDeck = async (req: Request, res: Response) => {
-    const { id } = req.params
+    const id: string = req.params.id
 
     const deck: IDeck = await Deck.findOne({
-        where: {id: id},  // include: Card
+        where: {id: id},
     });
 
     if(!deck){
@@ -39,7 +39,14 @@ export const getDeck = async (req: Request, res: Response) => {
 }
 
 export const createDeck = async (req: Request, res: Response) => {
-    const { type, shuffled }: { type: DECK_TYPE, shuffled: boolean } = req.body
+    const { type, shuffled }: { type: string, shuffled: boolean } = req.body
+    console.log(shuffled);
+    
+    if(type !== DECK_TYPE.FULL && type !== DECK_TYPE.HALF || shuffled === undefined){
+        return res.status(400).send({
+            error: 'Invalid request!', 
+        });
+    }    
 
     const numberOfCards: number = type === DECK_TYPE.FULL ? DECK_FULL_AMOUNT : DECK_HALF_AMOUNT
     const deck: IDeck = await Deck.create({type, shuffled, id: uuidv4()})
@@ -58,16 +65,16 @@ export const createDeck = async (req: Request, res: Response) => {
 }
 
 export const drawDeckCards = async (req: Request, res: Response) => {
-    const { count } = req.body
-    const { id } = req.params
+    const count: number = req.body.count
+    const id: string = req.params.id
     
     const deck: IDeck = await Deck.findOne({
         where: {id: id},  
     });
 
-    if(!deck){
+    if(!deck || !count){
         return res.status(404).send({
-            error: 'Not found!', 
+            error: 'Invalid request!', 
         });
     }
 
