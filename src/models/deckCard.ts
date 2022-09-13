@@ -1,5 +1,3 @@
-import Card from "./card";
-import Deck from "./deck";
 import sequelize from '../utils/sequelize'
 
 const { DataTypes } = require('sequelize')

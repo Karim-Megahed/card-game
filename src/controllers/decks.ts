@@ -8,7 +8,7 @@ import { IDeck, DECK_TYPE, DECK_FULL_AMOUNT, DECK_HALF_AMOUNT } from '../interfa
 import { ICard } from '../interfaces/card'
 import { IDeckCard } from '../interfaces/deckCard'
 
-export const getDecks = async (req: Request, res: Response) => {
+export const getDecks = async (_req: Request, res: Response) => {
     const decks = await Deck.findAll({});
 
     res.send(decks);
