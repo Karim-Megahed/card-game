@@ -42,4 +42,4 @@ export const setCardDrawnState = async(deck: IDeck, count: number) => {
         where: {deck_id: deck.id, drawn: false},
         limit: count
     })
-}}
+}
