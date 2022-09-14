@@ -4,3 +4,5 @@ export interface ICard {
     suit: string,
     code: string
 }
+
+export const EXCLUDED_CARDS: string[] = ['2', '3', '4', '5', '6'];
