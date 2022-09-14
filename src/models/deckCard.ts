@@ -21,6 +21,4 @@ const DeckCard = sequelize.define('decks_to_cards', {
     { timestamps: false }
 );
 
-// Deck.belongsToMany(Card, {through: DeckCards, timestamps: false});
-
 export default DeckCard;

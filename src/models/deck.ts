@@ -20,11 +20,4 @@ const Deck = sequelize.define('Deck', {
    timestamps: false,
 });
 
-// Deck.belongsToMany(Card, {through: 'decks_to_cards', timestamps: false});
-// const DecksCards = sequelize.define('decks_to_cards', {}, { timestamps: false });
-
-// Deck.associate = models => {
-//   Deck.hasMany(models.Card);
-// };
-
 export default Deck;
