@@ -1,8 +1,6 @@
-import { ICard } from "../interfaces/card"
-
-export default (array: ICard[]) => {
-    let currentIndex: number = array.length
-    let randomIndex: number
+const shuffle = (array) => {
+    let currentIndex = array.length;
+    let randomIndex;
   
     while (currentIndex != 0) {
       randomIndex = Math.floor(Math.random() * currentIndex)
@@ -13,3 +11,5 @@ export default (array: ICard[]) => {
   
     return array;
 }
+
+module.exports = shuffle;
