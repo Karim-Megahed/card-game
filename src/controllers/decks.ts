@@ -5,7 +5,7 @@ import { IDeck, DECK_TYPE } from '../interfaces/deck'
 import { ICard } from '../interfaces/card'
 import { createCards, getDeckCards, isValidDeckData, setCardDrawnState } from '../services/deck';
 
-export const getDeck = async (req: Request, res: Response) => {
+export const openDeck = async (req: Request, res: Response) => {
     const id: string = req.params.id
 
     const deck: IDeck = await Deck.findOne({where: {id: id}})

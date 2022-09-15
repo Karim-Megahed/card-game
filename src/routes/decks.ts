@@ -1,9 +1,9 @@
 import express from 'express'
-import { getDeck, createDeck, drawDeckCards } from '../controllers/decks'
+import { openDeck, createDeck, drawDeckCards } from '../controllers/decks'
 
 const router = express.Router()
 
-router.get('/:id', getDeck)
+router.get('/:id', openDeck)
 
 router.post('/:id', drawDeckCards)
 
